@@ -1,0 +1,44 @@
+#noteShell{
+  margin: auto;
+  width: 700px;
+  padding: 20px;
+  display: grid;
+  background-color: #f4e8ff;
+  font-family: 'Open Sans', sans-serif;
+  border: 2px solid #b55ef2;
+  border-radius: 6px;
+}
+#notesName{
+  font: #0d0b0f;
+}
+#noteTitle, textarea{
+  margin-bottom: 10px;
+  border: 1px solid #cf8cff;
+  border-radius: 3px;
+}
+button{
+  background-color: #a83b9e;
+  border: 1px solid #9c0e8f;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+}
+#saveButton{
+  margin-right: 50px;
+}
+#notesList{
+  margin-bottom: 10px;
+  height: 100px;
+  border: 1px solid #cf8cff;
+  padding-left: 200px;
+}
+#addButton, #notesList{
+  align-items: center;
+}
+#addButton{
+  display: grid;
+  margin: 20px;
+}

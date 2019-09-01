@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="Note_app_style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="noteShell">
+      <h1 id="notesName">Note Book</h1>
+      <div id="readNote">
+          <button type="button" id="addButton">Add Notes</button>
+          <select id="notesList" size="5">
+          </select>
+      </div>
+      <div id="writeNote">
+        <div>
+          <label for="noteTitle"><b>Note Title</b></label>
+        </div>
+        <div>
+          <input type="text" id="noteTitle">
+        </div>
+        <div>
+          <label for="noteBody"><b>Notes</b></label>
+        </div>
+        <div>
+          <textarea id="noteBody" name="noteArea" rows="8" cols="80" placeholder="Write note here..."></textarea>
+        </div>
+        <button type="button" id="saveButton">Save Note</button>
+        <button type="button" id="deleteButton">Delete Note</button>
+      </div>
+    </div>
+  </body>
+</html>
