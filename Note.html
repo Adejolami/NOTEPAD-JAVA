@@ -1,35 +1,157 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Notes App</title>
-    <link rel="stylesheet" href="Note_app_style.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="noteShell">
-      <h1 id="notesName">Note Book</h1>
-      <div id="readNote">
-          <button type="button" id="addButton">Add Notes</button>
-          <select id="notesList" size="5">
-          </select>
-      </div>
-      <div id="writeNote">
-        <div>
-          <label for="noteTitle"><b>Note Title</b></label>
+    <head>
+        <meta charset="utf-8">
+        <title>Notes App</title>
+        <link rel="stylesheet" href="Note.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+        <script type="text/javascript">
+
+
+            /*
+             * 
+             * Refresh the items in the select
+             * 
+             * Loads the items saved in the local storage
+             * 
+             * LocalStorage allows to save key/value pairs in a web browser.
+             * 
+             * @see <a href="https://www.w3schools.com/jsref/prop_win_localstorage.asp">Local Storage</a>
+             * 
+             */
+            function refresh() {
+
+                clearFields();
+                noteList = document.getElementById("notesList");
+                var length = noteList.options.length;
+                for (i = 0; i < length; i++) {
+                    noteList.options[i] = null;
+                }
+                for (var i = 0; i < localStorage.length; i++) {
+
+                    if (localStorage.key(i).startsWith("Note")) {
+
+
+                        var optionValue = localStorage.key(i).replace("Note_", '');
+
+                        noteList.options[noteList.options.length] = new Option(optionValue.toUpperCase(), localStorage.key(i));
+
+
+                    }
+                }
+            }
+
+            
+            function addNote() {
+
+                var noteTitle = document.getElementById("noteTitle");
+                noteTitle.focus();
+                refresh();
+                clearFields();
+
+
+            }
+
+
+            /*
+             * 
+             * Save the note to localstorage and refresh the view
+             */
+            function saveNote() {
+                var noteTextArea = document.getElementById("noteBody");
+
+                var noteTitle = document.getElementById("noteTitle");
+
+                if (noteTitle.value !== null && noteTitle.value !== '' && noteTextArea.value !== null && noteTextArea.value !== '') {
+
+                    localStorage.setItem("Note_" + noteTitle.value, noteTextArea.value);
+                    alert("Note: " + noteTitle.value + " Saved");
+
+                    clearFields();
+                    refresh();
+                }
+            }
+
+
+            function clearFields() {
+
+                var noteTextArea = document.getElementById("noteBody");
+                var noteTitle = document.getElementById("noteTitle");
+
+                noteTextArea.value = "";
+
+                noteTitle.value = "";
+
+
+            }
+            
+            
+             /*
+             * 
+             * Delete note from localstorage and refresh the view
+             */
+            function deleteNote() {
+
+
+                if (document.getElementById("notesList").value !== null && document.getElementById("notesList").value !== '') {
+                    if (confirm("Delete note: " + document.getElementById("notesList").value.replace("Note_", '') + " ?")) {
+
+                        localStorage.removeItem(document.getElementById("notesList").value);
+
+                        alert("Note deleted");
+                        clearFields();
+                        refresh();
+
+
+
+                    }
+                }
+               
+            }
+
+            function noteItemClick() {
+              
+                noteList = document.getElementById("notesList");
+                noteText = localStorage.getItem((noteList.value));
+                var noteTextArea = document.getElementById("noteBody");
+
+                var noteTitle = document.getElementById("noteTitle");
+
+                noteTitle.value = noteList.value.replace("Note_", '').toUpperCase();//localStorage.key(noteList.value).replace("Note_",'');
+                noteTextArea.value = noteText;
+            }
+
+
+        </script>
+    </head>
+    <body>
+        <div id="noteShell">
+            <h1 id="notesName">Note Book</h1>
+
+            <a href="#" onclick="refresh()">Refresh</a>
+            <div id="readNote">
+                <button type="button" id="addButton" onclick="addNote()">Add Notes</button>
+
+                <select id="notesList" size="5"  onclick="noteItemClick()"  >
+
+                </select>
+            </div>
+            <div id="writeNote">
+                <div>
+                    <label for="noteTitle"><b>Note Title</b></label>
+                </div>
+                <div>
+                    <input type="text" id="noteTitle">
+                </div>
+                <div>
+                    <label for="noteBody"><b>Notes</b></label>
+                </div>
+                <div>
+                    <textarea id="noteBody" name="noteArea" rows="8" cols="80" placeholder="Write note here..."></textarea>
+                </div>
+                <button type="button" id="saveButton" onclick="saveNote()">Save Note</button>
+                <button type="button" id="deleteButton" onclick="deleteNote()">Delete Note</button>
+            </div>
         </div>
-        <div>
-          <input type="text" id="noteTitle">
-        </div>
-        <div>
-          <label for="noteBody"><b>Notes</b></label>
-        </div>
-        <div>
-          <textarea id="noteBody" name="noteArea" rows="8" cols="80" placeholder="Write note here..."></textarea>
-        </div>
-        <button type="button" id="saveButton">Save Note</button>
-        <button type="button" id="deleteButton">Delete Note</button>
-      </div>
-    </div>
-  </body>
+    </body>
 </html>
